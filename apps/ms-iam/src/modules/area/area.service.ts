@@ -10,6 +10,7 @@ import { MongoError } from 'mongodb';
 @Injectable()
 export class AreaService {
   constructor(@InjectModel(Area.name) private areaModel: Model<Area>) {}
+
   async create(createAreaDto: CreateAreaDto) {
     try {
       return await this.areaModel.create(createAreaDto);
@@ -20,19 +21,25 @@ export class AreaService {
     }
   }
 
-  findAll() {
-    return `This action returns all area`;
+  async findAll() {
+    return await this.areaModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} area`;
+  async findOne(id: string) {
+    return await this.areaModel.findById(id).exec();
   }
 
-   async update(id: number, updateAreaDto: UpdateAreaDto) {
-    return `This action updates a #${id} area`;
+  async update(id: string, updateAreaDto: UpdateAreaDto) {
+    try {
+      return await this.areaModel.updateOne({ _id: id }, updateAreaDto);
+    } catch (error: unknown) {
+      if ((error as Record<string, number>)?.code)
+        mongoErrorHandler(error as MongoError);
+      throw new Error(error as string);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} area`;
+  async remove(id: string) {
+    return await this.areaModel.deleteOne({ _id: id });
   }
 }
