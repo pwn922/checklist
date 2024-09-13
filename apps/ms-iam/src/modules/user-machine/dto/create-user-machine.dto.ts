@@ -1,9 +1,9 @@
-
 import { IsNotEmpty } from 'class-validator';
-import { Types } from 'mongoose';
-
 
 export class CreateUserMachineDto {
-  
-}
+  @IsNotEmpty()
+  userId!: string;  // Definite assignment assertion
 
+  @IsNotEmpty()
+  machineId!: string;  // Definite assignment assertion
+}

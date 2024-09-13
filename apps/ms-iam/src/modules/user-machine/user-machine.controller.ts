@@ -18,17 +18,17 @@ export class UserMachineController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userMachineService.findOne(+id);
-  }
+findOne(@Param('id') id: string) {
+  return this.userMachineService.findOne(id); 
+}
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserMachineDto: UpdateUserMachineDto) {
-    return this.userMachineService.update(+id, updateUserMachineDto);
-  }
+@Patch(':id')
+update(@Param('id') id: string, @Body() updateUserMachineDto: UpdateUserMachineDto) {
+  return this.userMachineService.update(id, updateUserMachineDto); 
+}
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userMachineService.remove(+id);
-  }
+@Delete(':id')
+remove(@Param('id') id: string) {
+  return this.userMachineService.remove(id); 
+}
 }

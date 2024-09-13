@@ -25,15 +25,21 @@ export class MachineService {
     return await this.machineModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} machine`;
+  async findOne(id: string) {
+    return await this.machineModel.findById(id).exec();
   }
 
-  update(id: number, updateMachineDto: UpdateMachineDto) {
-    return `This action updates a #${id} machine`;
+  async update(id: string, updateMachineDto: UpdateMachineDto) {
+    try {
+      return await this.machineModel.updateOne({ _id: id }, updateMachineDto);
+    } catch (error: unknown) {
+      if ((error as Record<string, number>)?.code)
+        mongoErrorHandler(error as MongoError);
+      throw new Error(error as string);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} machine`;
+  async remove(id: string) {
+    return await this.machineModel.deleteOne({ _id: id });
   }
 }
