@@ -1,13 +1,14 @@
 import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
-export class CreateCompanyDto {}
+export class CreateAreaDto {}
 
-export class createCompanyDto{
+export class createAreaDto{
     @IsNotEmpty()
     @IsString()
     name?: string;
 
     @IsNotEmpty()
     @IsString()
-     address?: string;
+     location?: string;
 }
+
