@@ -1,0 +1,58 @@
+services:
+  ms-iam:
+    build:
+      context: .
+      dockerfile: ./apps/ms-iam/Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - MONGODB_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo-iam:27017/
+      - MONGODB_DATABASE=ms-iam
+    depends_on:
+      - mongo-iam
+      # - rabbitmq
+
+  ms-questionnaire:
+    build:
+      context: .
+      dockerfile: ./apps/ms-questionnaire/Dockerfile
+    ports:
+      - '3001:3000'
+    environment:
+      - MONGODB_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo-questionnaire:27017/
+      - MONGODB_DATABASE=ms-questionnaire
+    depends_on:
+      - mongo-questionnaire
+      # - rabbitmq
+
+  mongo-iam:
+    image: mongo:latest
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGODB_ADVERTISED_HOSTNAME=mongo-iam
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-iam-data:/data/db
+
+  mongo-questionnaire:
+    image: mongo:latest
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGODB_ADVERTISED_HOSTNAME=mongo-questionnaire
+    ports:
+      - '27018:27017'
+    volumes:
+      - mongo-questionnaire-data:/data/db
+
+volumes:
+  mongo-iam-data:
+    driver: local
+  mongo-questionnaire-data:
+    driver: local
+  # rabbitmq_data:
+  # driver: local
