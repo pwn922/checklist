@@ -19,7 +19,7 @@ services:
     ports:
       - '3001:3000'
     environment:
-      - MONGODB_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo-questionnaire:27017/
+      - MONGODB_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo-questionnaire:27018/
       - MONGODB_DATABASE=ms-questionnaire
     depends_on:
       - mongo-questionnaire
