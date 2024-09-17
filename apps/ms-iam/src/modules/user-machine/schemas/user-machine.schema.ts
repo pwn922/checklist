@@ -10,11 +10,6 @@ export class UserMachine extends mongoose.Document {
 
  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Machine" })
   Machine?:Machine;
-
-  
-  
-
-  
 }
 
 export const UserMachineSchema = SchemaFactory.createForClass(UserMachine);

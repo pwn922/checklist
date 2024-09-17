@@ -9,5 +9,5 @@ export class createCompanyDto{
 
     @IsNotEmpty()
     @IsString()
-     address?: string;
+    address?: string;
 }

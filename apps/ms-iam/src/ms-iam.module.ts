@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MsIamController } from './ms-iam.controller';
+import { MsIamService } from './ms-iam.service';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -10,8 +10,6 @@ import { UserModule } from './modules/user/user.module';
 import { AreaModule } from './modules/area/area.module';
 import { MachineModule } from './modules/machine/machine.module';
 import { UserMachineModule } from './modules/user-machine/user-machine.module';
-
-
 
 
 @Module({
@@ -36,7 +34,7 @@ import { UserMachineModule } from './modules/user-machine/user-machine.module';
 
     UserMachineModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [MsIamController],
+  providers: [MsIamService],
 })
-export class AppModule {}
+export class MsIamModule {}

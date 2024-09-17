@@ -1,8 +1,8 @@
 import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
-export class CreateAreaDto {}
+export class CreateAnswerDto {}
 
-export class createAreaDto{
+export class createAnswerDto{
     @IsNotEmpty()
     @IsString()
     name?: string;
@@ -11,4 +11,3 @@ export class createAreaDto{
     @IsString()
     location?: string;
 }
-
