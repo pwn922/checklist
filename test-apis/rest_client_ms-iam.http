@@ -1,0 +1,137 @@
+@MS-IAM_URL=http://127.0.0.1:3000
+@USER_ENDPOINT=user
+@USER_MACHINE_ENDPOINT=user-machine
+@MACHINE_ENDPOINT=machine
+@AREA_ENDPOINT=area
+@COMPANY_ENDPOINT=company
+
+# USER
+
+### Get Users
+GET {{MS-IAM_URL}}/{{USER_ENDPOINT}}
+User-Agent: rest-client
+Content-Type: application/json
+
+### Create User
+POST {{MS-IAM_URL}}/{{USER_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "name": "name1",
+    "lastName": "last1",
+    "email": "mail1@hotmail.com",
+    "password": "pass1"
+}
+
+### Create User
+POST {{MS-IAM_URL}}/{{USER_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "name": "name2",
+    "lastName": "last2",
+    "email": "mail2@hotmail.com",
+    "password": "pass2"
+}
+
+### Create User
+POST {{MS-IAM_URL}}/{{USER_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "name": "name3",
+    "lastName": "last3",
+    "email": "mail3@hotmail.com",
+    "password": "pass3"
+}
+
+# Machine
+
+### Get Machines
+GET {{MS-IAM_URL}}/{{MACHINE_ENDPOINT}}
+User-Agent: rest-client
+Content-Type: application/json
+
+### Create Machine
+POST {{MS-IAM_URL}}/{{MACHINE_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "name": "machine1",
+    "modelo": "modelo1"
+}
+
+# User-Machine
+
+### Get User-Machines
+GET {{MS-IAM_URL}}/{{USER_MACHINE_ENDPOINT}}
+User-Agent: rest-client
+Content-Type: application/json
+
+### Create User-Machine
+POST {{MS-IAM_URL}}/{{USER_MACHINE_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+  "userId": "66e4c2052d8df51cc9107a50",
+  "machineId": "66e4c3622d8df51cc9107a58"
+}
+
+# Area
+
+### Get Areas
+GET {{MS-IAM_URL}}/{{AREA_ENDPOINT}}
+User-Agent: rest-client
+Content-Type: application/json
+
+### Create AreaG
+POST {{MS-IAM_URL}}/{{AREA_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "name": "area1",
+    "location": "location1"
+}
+
+### Create Area
+POST {{MS-IAM_URL}}/{{AREA_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "name": "area2",
+    "location": "location2"
+}
+
+# Company
+
+### Get Companies
+GET {{MS-IAM_URL}}/{{COMPANY_ENDPOINT}}
+User-Agent: rest-client
+Content-Type: application/json
+
+### Create Company
+POST {{MS-IAM_URL}}/{{COMPANY_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "name": "company1",
+    "address": "address1"
+}
+
+### Create Company
+POST {{MS-IAM_URL}}/{{COMPANY_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "name": "company2",
+    "address": "address2"
+}

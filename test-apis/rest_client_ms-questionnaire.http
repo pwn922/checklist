@@ -1,0 +1,37 @@
+@MS-QUESTIONNAIRE_URL=http://127.0.0.1:3000
+
+
+@QUESTIONNAIRE_ENDPOINT=questionnaire
+@ANSWER_ENDPOINT=answers
+
+# QUESTIONNAIRE
+### Get Questionnaires
+GET {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}
+User-Agent: rest-client
+Content-Type: application/json
+
+
+### Create Questionnaire
+POST {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "title": "title2",
+    "description": "description1"
+}
+
+# ANSWERS
+### Get Answers
+GET {{MS-QUESTIONNAIRE_URL}}/{{ANSWER_ENDPOINT}}
+User-Agent: rest-client
+Content-Type: application/json
+
+### Create Answer
+POST {{MS-QUESTIONNAIRE_URL}}/{{ANSWER_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "answerText": "description1"
+}
