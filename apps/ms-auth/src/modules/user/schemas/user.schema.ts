@@ -10,10 +10,10 @@ export class User extends Document {
   lastName?: string;
 
   @Prop({ type: String, required: true, unique: true })
-  email?: string;
+  email!: string;
 
   @Prop({ type: String, required: true })
-  password?: string;
+  password!: string;
 
   @Prop({ type: Number })
   phone?: number;
@@ -23,6 +23,9 @@ export class User extends Document {
 
   @Prop({ type: String })
   addressAdditional?: string;
+
+  @Prop({ default: true })
+  active?: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
