@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 import { CreateQuestionnaireDto } from './dto/create-questionnaire.dto';
 import { UpdateQuestionnaireDto } from './dto/update-questionnaire.dto';
 import { Questionnaire } from './schemas/questionnaire.schema';
-import { mongoErrorHandler } from '../../utils/mongo-error-handler';
+import { mongoErrorHandler } from '@app/common';
 import { MongoError } from 'mongodb';
 
 @Injectable()
