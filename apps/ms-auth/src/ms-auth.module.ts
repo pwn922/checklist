@@ -10,6 +10,7 @@ import { AuthModule } from './modules/auth/auth.module';
       isGlobal: true, // Hace que ConfigModule sea global, no necesitas importarlo en otros módulos.
       envFilePath: '.env', // Especifica el archivo de variables de entorno.
     }),
+    
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

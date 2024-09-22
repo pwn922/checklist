@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login-auth.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { RefreshTokenDto } from './dto/refesh-token-auth.dto';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 
 
 
@@ -11,13 +12,13 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)
-  @Post('register')
+  @Post('signup')
   signUp(@Body() createUserDto: CreateUserDto) {
     return this.authService.signUp(createUserDto);
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('login')
+  @Post('signin')
   signIn(@Body() loginDto: LoginDto) {
     return this.authService.signIn(loginDto);
   }
@@ -28,18 +29,8 @@ export class AuthController {
     return this.authService.renewAccessToken(refreshTokenDto);
   }
 
-  
-  @Get('check-access-token')
-  async checkAccessToken(@Headers('Authorization') authorizationHeader: string) {
-      return this.authService.checkAccessToken(authorizationHeader);
+  @MessagePattern('check-access-token')
+  async checkAccessToken(@Payload() accessToken: any) {
+      return this.authService.checkAccessToken(accessToken);
   }
-
-
-
-    /*
-  @Get('validate-access-token')
-  async validateAccessToken(@Headers('authorization') authorizationHeader: string): Promise<{ user: any }> {
-    const user = await this.authService.validateAccessToken(authorizationHeader);
-    return { user };
-  }*/
 }

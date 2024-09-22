@@ -3,7 +3,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { FilterQuery, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
-import { mongoErrorHandler } from '../../utils/mongo-error-handler';
+import { mongoErrorHandler } from '@app/common';
 import { MongoError } from 'mongodb';
 import { CreateUserDto } from './dto/create-user.dto';
 

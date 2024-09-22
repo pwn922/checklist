@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login-auth.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { RefreshTokenDto } from './dto/refesh-token-auth.dto';
+import { Payload } from '@nestjs/microservices';
 
 interface UserPayload {
   id: string;
@@ -57,27 +58,21 @@ export class AuthService {
     };
   }
 
-  async checkAccessToken(authorizationHeader: string) {
-    if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
-      throw new UnauthorizedException('Authorization header not found or invalid');
-    }
-
-    const token = authorizationHeader.split(' ')[1];
-    if (!token) {
-      throw new UnauthorizedException('Access token not found');
-    }
-
+  async checkAccessToken(@Payload() accessToken: any)  {
     try {
+      console.debug("ms-auth.service payload accessToken: ", accessToken);
+
       const JWT_ACCESS_SECRET = this.configService.get<string>('JWT_ACCESS_SECRET');
       if (!JWT_ACCESS_SECRET) {
         throw new InternalServerErrorException('JWT access secret is not defined in environment variables');
       }
 
-      const payload = await this.jwtService.verifyAsync(token, {
+      const payload = await this.jwtService.verifyAsync(accessToken, {
         secret: JWT_ACCESS_SECRET,
       });
 
-      const user = await this.userService.findOne({ id: payload.id, active: true });
+      const user = await this.userService.findOne({ _id: payload.id, active: true });
+
       if (!user) {
         throw new UnauthorizedException('User not found or inactive');
       }
