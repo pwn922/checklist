@@ -9,8 +9,13 @@ COPY package.json ./
 # Install dependencies
 RUN npm install
 
+# Copy tsconfig and nest-cli configuration files
+COPY tsconfig.json nest-cli.json ./
 
-COPY . .
+# Copy the desired microservice folder
+COPY apps/ms-iam ./apps/ms-iam
+
+#COPY . .
 
 # Build the code
 RUN npm run build ms-iam

@@ -5,7 +5,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CompanyModule } from './modules/company/company.module';
-import { UserModule } from './modules/user/user.module';
 
 import { AreaModule } from './modules/area/area.module';
 import { MachineModule } from './modules/machine/machine.module';
@@ -20,11 +19,9 @@ import { UserMachineModule } from './modules/user-machine/user-machine.module';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         uri: configService.get<string>('MONGODB_URI'),
-        dbName: configService.get<string>('MONGODB_DATABASE'),
+        dbName: configService.get<string>('MONGODB_DATABASE_MSIAM'),
       }),
     }),
-
-    UserModule,
 
     CompanyModule,
 
