@@ -4,7 +4,7 @@ import { UpdateAreaDto } from './dto/update-area.dto';
 import { Area } from './schemas/area.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { mongoErrorHandler } from '../../utils/mongo-error-handler';
+import { mongoErrorHandler } from '@app/common';
 import { MongoError } from 'mongodb';
 
 @Injectable()

@@ -1,14 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
-import { Machine } from '../../machine/schemas/machine.schema';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 
 @Schema()
-export class UserMachine extends mongoose.Document {
-  @Prop({ type: mongoose.Schema.Types.ObjectId })
-    User?: mongoose.Types.ObjectId;
+export class UserMachine extends Document {
+  @Prop({ type: MongooseSchema.Types.ObjectId })
+  user?: MongooseSchema.Types.ObjectId;
 
- @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Machine" })
-  Machine?: Machine;
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: "Machine" })
+  machine?: MongooseSchema.Types.ObjectId;
 }
 
 export const UserMachineSchema = SchemaFactory.createForClass(UserMachine);

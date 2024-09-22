@@ -4,7 +4,7 @@ import { UpdateUserMachineDto } from './dto/update-user-machine.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserMachine } from './schemas/user-machine.schema';
-import { mongoErrorHandler } from '../../utils/mongo-error-handler';
+import { mongoErrorHandler } from '@app/common';
 import { MongoError } from 'mongodb';
 
 @Injectable()

@@ -9,7 +9,7 @@ import { CompanyModule } from './modules/company/company.module';
 import { AreaModule } from './modules/area/area.module';
 import { MachineModule } from './modules/machine/machine.module';
 import { UserMachineModule } from './modules/user-machine/user-machine.module';
-
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -22,6 +22,20 @@ import { UserMachineModule } from './modules/user-machine/user-machine.module';
         dbName: configService.get<string>('MONGODB_DATABASE_MSIAM'),
       }),
     }),
+
+    ClientsModule.registerAsync([
+      {
+        name: 'ms-auth',
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.TCP,
+          options: {
+            host: configService.get<string>('AUTH_HOST'),
+            port: configService.get<number>('AUTH_PORT'),
+          },
+        }),
+        inject: [ConfigService],
+      },
+    ]),
 
     CompanyModule,
 
