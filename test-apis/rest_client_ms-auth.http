@@ -1,0 +1,82 @@
+
+@MS-AUTH_URL=http://127.0.0.1:3000
+@USER_ENDPOINT=user
+
+@AUTH_LOGIN_ENDPOINT=auth/login
+@AUTH_REGISTER_ENDPOINT=auth/register
+@AUTH_RENEWACCESSTOKEN_ENDPOINT=auth/renew-access-token
+# AUTH
+
+### Register User
+POST {{MS-AUTH_URL}}/{{AUTH_REGISTER_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "name": "name1",
+    "lastName": "lastName1",
+    "email": "mail3@hotmail.com",
+    "password": "pass3"
+}
+
+### Login User
+POST {{MS-AUTH_URL}}/{{AUTH_LOGIN_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "email": "mail3@hotmail.com",
+    "password": "pass3"
+}
+
+### Refresh Token
+POST {{MS-AUTH_URL}}/{{AUTH_RENEWACCESSTOKEN_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "refreshToken": ""
+}
+
+# USER
+
+### Get Users
+GET {{MS-AUTH_URL}}/{{USER_ENDPOINT}}
+User-Agent: rest-client
+Content-Type: application/json
+
+### Create User
+POST {{MS-AUTH_URL}}/{{USER_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "name": "name1",
+    "lastName": "last1",
+    "email": "mail1@hotmail.com",
+    "password": "pass1"
+}
+
+### Create User
+POST {{MS-AUTH_URL}}/{{USER_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "name": "name2",
+    "lastName": "last2",
+    "email": "mail2@hotmail.com",
+    "password": "pass2"
+}
+
+### Create User
+POST {{MS-AUTH_URL}}/{{USER_ENDPOINT}}
+Content-Type: application/json
+Authorization: 
+
+{
+    "name": "name3",
+    "lastName": "last3",
+    "email": "mail3@hotmail.com",
+    "password": "pass3"
+}
