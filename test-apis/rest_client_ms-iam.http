@@ -4,6 +4,13 @@
 @AREA_ENDPOINT=area
 @COMPANY_ENDPOINT=company
 
+@JWT_TOKEN=
+
+### /
+GET {{MS-IAM_URL}}/
+User-Agent: rest-client
+Content-Type: application/json
+Authorization: Bearer {{JWT_TOKEN}}
 # Machine
 
 ### Get Machines
@@ -45,7 +52,7 @@ GET {{MS-IAM_URL}}/{{AREA_ENDPOINT}}
 User-Agent: rest-client
 Content-Type: application/json
 
-### Create AreaG
+### Create Area
 POST {{MS-IAM_URL}}/{{AREA_ENDPOINT}}
 Content-Type: application/json
 Authorization: 
