@@ -29,13 +29,22 @@
       }
     },
     "ms-iam": {
-         "type": "application",
-         "root": "apps/ms-iam",
-         "sourceRoot": "apps/ms-iam/src",
-         "entryFile": "main",
-         "compilerOptions": {
-            "tsConfigPath": "apps/ms-iam/tsconfig.app.json"
-         }
+      "type": "application",
+      "root": "apps/ms-iam",
+      "sourceRoot": "apps/ms-iam/src",
+      "entryFile": "main",
+      "compilerOptions": {
+        "tsConfigPath": "apps/ms-iam/tsconfig.app.json"
+      }
+    },
+    "ms-auth": {
+      "type": "application",
+      "root": "apps/ms-auth",
+      "entryFile": "main",
+      "sourceRoot": "apps/ms-auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/ms-auth/tsconfig.app.json"
+      }
     }
   }
 }
