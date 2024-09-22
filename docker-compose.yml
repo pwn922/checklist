@@ -3,12 +3,14 @@ services:
     build:
       context: .
       dockerfile: ./apps/ms-auth/Dockerfile
+    container_name: ms-auth
     ports:
       - '3000:3000'
     environment:
       - MONGODB_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/
       - MONGODB_DATABASE_MSAUTH=ms-auth
       - JWT_SECRET=${JWT_SECRET}
+      - AUTH_PORT=4567
       #- MONGODB_DATABASE=ms-auth
     depends_on:
       - mongo
@@ -17,12 +19,14 @@ services:
     build:
       context: .
       dockerfile: ./apps/ms-iam/Dockerfile
+    container_name: ms-iam
     ports:
-      - '3001:3000'
+      - '3001:3001'
     environment:
       - MONGODB_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/
       - MONGODB_DATABASE_MSIAM=ms-iam
-      #- MONGODB_DATABASE=ms-iam
+      - AUTH_HOST=ms-auth
+      - AUTH_PORT=4567
     depends_on:
       - mongo
       # - rabbitmq
@@ -31,11 +35,14 @@ services:
     build:
       context: .
       dockerfile: ./apps/ms-questionnaire/Dockerfile
+    container_name: ms-questionnaire
     ports:
-      - '3002:3000'
+      - '3002:3002'
     environment:
       - MONGODB_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/
       - MONGODB_DATABASE_MSQUESTIONNAIRE=ms-questionnaire
+      - AUTH_HOST=ms-auth
+      - AUTH_PORT=4567
       #- MONGODB_DATABASE=ms-questionnaire
     depends_on:
       - mongo
@@ -48,6 +55,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
       - MONGODB_ADVERTISED_HOSTNAME=mongo
+      
     ports:
       - '27017:27017'
     volumes:

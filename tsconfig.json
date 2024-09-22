@@ -18,6 +18,8 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "strict": true,
-    "paths": {}
+    "paths": {
+      "@app/common": ["libs/common/src"]
+    }
   }
 }
