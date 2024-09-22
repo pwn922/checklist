@@ -13,8 +13,8 @@ import { AnswersModule } from './modules/answers/answers.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URI_2'),
-        dbName: configService.get<string>('MONGODB_DATABASE_2'),
+        uri: configService.get<string>('MONGODB_URI'),
+        dbName: configService.get<string>('MONGODB_DATABASE_MSQUESTIONNAIRE'),
       }),
     }),
     QuestionnaireModule,

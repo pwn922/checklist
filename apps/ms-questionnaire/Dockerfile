@@ -9,14 +9,13 @@ COPY package.json ./
 # Install dependencies
 RUN npm install
 
+# Copy tsconfig and nest-cli configuration files
+COPY tsconfig.json nest-cli.json ./
 
-COPY . .
-# Copy NestJS and TypeScript configuration files
-#COPY tsconfig*.json ./
-#COPY nest-cli.json ./
+# Copy the desired microservice folder
+COPY apps/ms-questionnaire ./apps/ms-questionnaire
 
-# Copy the microservice source code
-#COPY apps/ms-questionnaire ./apps/ms-questionnaire
+#COPY . .
 
 # Build the code
 RUN npm run build ms-questionnaire
