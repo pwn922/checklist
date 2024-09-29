@@ -5,6 +5,7 @@ import { MsQuestionnaireController } from './ms-questionnaire.controller';
 import { MsQuestionnaireService } from './ms-questionnaire.service';
 import { QuestionnaireModule } from './modules/questionnaire/questionnaire.module';
 import { AnswersModule } from './modules/answers/answers.module';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -17,6 +18,19 @@ import { AnswersModule } from './modules/answers/answers.module';
         dbName: configService.get<string>('MONGODB_DATABASE_MSQUESTIONNAIRE'),
       }),
     }),
+    ClientsModule.registerAsync([
+      {
+        name: 'ms-auth',
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.TCP,
+          options: {
+            host: configService.get<string>('AUTH_HOST'),
+            port: configService.get<number>('AUTH_PORT'),
+          },
+        }),
+        inject: [ConfigService],
+      },
+    ]),
     QuestionnaireModule,
     AnswersModule,
   ],
