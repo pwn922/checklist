@@ -5,12 +5,11 @@
 @COMPANY_ENDPOINT=company
 
 @JWT_TOKEN=
-
 ### /
-GET {{MS-IAM_URL}}/
-User-Agent: rest-client
-Content-Type: application/json
-Authorization: Bearer {{JWT_TOKEN}}
+GET {{MS-IAM_URL}}/area
+//User-Agent: rest-client
+//Content-Type: application/json
+//Authorization: Bearer {{JWT_TOKEN}}
 # Machine
 
 ### Get Machines
@@ -55,11 +54,11 @@ Content-Type: application/json
 ### Create Area
 POST {{MS-IAM_URL}}/{{AREA_ENDPOINT}}
 Content-Type: application/json
-Authorization: 
+Authorization: Bearer {{JWT_TOKEN}}
 
 {
-    "name": "area1",
-    "location": "location1"
+    "name": "area2",
+    "location": "location2"
 }
 
 ### Create Area
