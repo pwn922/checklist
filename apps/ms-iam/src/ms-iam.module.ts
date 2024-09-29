@@ -10,6 +10,8 @@ import { AreaModule } from './modules/area/area.module';
 import { MachineModule } from './modules/machine/machine.module';
 import { UserMachineModule } from './modules/user-machine/user-machine.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { JwtAuthGuard } from '@app/common';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -22,7 +24,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         dbName: configService.get<string>('MONGODB_DATABASE_MSIAM'),
       }),
     }),
-
     ClientsModule.registerAsync([
       {
         name: 'ms-auth',
@@ -36,16 +37,19 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         inject: [ConfigService],
       },
     ]),
-
     CompanyModule,
-
     AreaModule,
-
     MachineModule,
-
     UserMachineModule,
   ],
+ 
   controllers: [MsIamController],
-  providers: [MsIamService],
+  providers: [
+    MsIamService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class MsIamModule {}
