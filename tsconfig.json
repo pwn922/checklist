@@ -19,7 +19,7 @@
     "noFallthroughCasesInSwitch": true,
     "strict": true,
     "paths": {
-      "@app/common": ["libs/common/src"]
+      "@app/common": ["libs/common"]
     }
   }
 }
