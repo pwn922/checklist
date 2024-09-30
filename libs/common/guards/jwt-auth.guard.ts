@@ -22,9 +22,8 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     const request = context.switchToHttp().getRequest();
-    const token = request.headers.authorization?.split(' ')[1];
-
-    if (!token) {
+    const authorizationValue = request.headers.authorization;    
+    if (!authorizationValue) {
       return false;
     }
 
@@ -33,11 +32,10 @@ export class JwtAuthGuard implements CanActivate {
       user = await lastValueFrom(
         this.client.send(
           'check-access-token',
-          token
+          authorizationValue
         )
       );
     } catch (error) {
-      console.debug("ERROR: ", error);
       return false;
     }
 
