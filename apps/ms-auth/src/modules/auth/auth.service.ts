@@ -58,8 +58,9 @@ export class AuthService {
     };
   }
 
-  async checkAccessToken(@Payload() accessToken: any)  {
+  async checkAccessToken(authHeader: string)  {
     try {
+      const accessToken = this.extractTokenFromHeader(authHeader);
       console.debug("ms-auth.service payload accessToken: ", accessToken);
 
       const JWT_ACCESS_SECRET = this.configService.get<string>('JWT_ACCESS_SECRET');
@@ -134,5 +135,19 @@ export class AuthService {
     console.debug(accessToken);
 
     return accessToken;
+  }
+
+  private extractTokenFromHeader(authHeader: string): string {
+    if (!authHeader) {
+      throw new UnauthorizedException('No authorization header found');
+    }
+
+    const tokenParts = authHeader.split(' ');
+
+    if (tokenParts[0] !== 'Bearer' || !tokenParts[1]) {
+      throw new UnauthorizedException('Invalid authorization format');
+    }
+
+    return tokenParts[1];
   }
 }

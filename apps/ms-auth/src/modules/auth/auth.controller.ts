@@ -1,10 +1,9 @@
-import { Body, Controller, Post, HttpCode, HttpStatus, Get, Headers } from '@nestjs/common';
+import { Body, Controller, Post, HttpCode, HttpStatus, Get, Headers, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login-auth.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { RefreshTokenDto } from './dto/refesh-token-auth.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-
 
 
 @Controller('auth')
@@ -29,8 +28,14 @@ export class AuthController {
     return this.authService.renewAccessToken(refreshTokenDto);
   }
 
+  @Get('check-access-token')
+  @HttpCode(HttpStatus.OK)
+  async checkAccessTokenHttp(@Headers('Authorization') authHeader: string) {
+    return this.authService.checkAccessToken(authHeader);
+  }
+
   @MessagePattern('check-access-token')
-  async checkAccessToken(@Payload() accessToken: any) {
-      return this.authService.checkAccessToken(accessToken);
+  async checkAccessToken(@Payload() authHeader: any) {
+      return this.authService.checkAccessToken(authHeader);
   }
 }
