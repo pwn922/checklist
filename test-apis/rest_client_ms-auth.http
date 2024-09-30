@@ -4,8 +4,16 @@
 
 @AUTH_LOGIN_ENDPOINT=auth/signin
 @AUTH_REGISTER_ENDPOINT=auth/signup
+@AUTH_CHECK_ACCESS_TOKEN=auth/check-access-token
 @AUTH_RENEWACCESSTOKEN_ENDPOINT=auth/renew-access-token
+@JWT_TOKEN=
 # AUTH
+
+# CheckAccessToken
+GET {{MS-AUTH_URL}}/{{AUTH_CHECK_ACCESS_TOKEN}}
+Content-Type: application/json
+Authorization: Bearer {{JWT_TOKEN}}
+
 
 ### Register User
 POST {{MS-AUTH_URL}}/{{AUTH_REGISTER_ENDPOINT}}
