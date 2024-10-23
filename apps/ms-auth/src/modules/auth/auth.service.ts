@@ -6,7 +6,6 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login-auth.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { RefreshTokenDto } from './dto/refesh-token-auth.dto';
-import { Payload } from '@nestjs/microservices';
 
 interface UserPayload {
   id: string;
@@ -45,7 +44,7 @@ export class AuthService {
     const user = await this.userService.findOneByEmail(loginDto.email);
     const passwordMatch = user && await bcrypt.compare(loginDto.password, user.password);
     if (!passwordMatch) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException(['Invalid credentials']);
     }
 
     const payload = { id: user.id, email: user.email };
