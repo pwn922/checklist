@@ -1,13 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsNotEmpty, IsBoolean, IsOptional, IsMongoId } from 'class-validator';
 
-export class CreateAnswerDto {}
+export class CreateAnswerDto {
+  @IsNotEmpty()
+  content!: string;
 
-export class createAnswerDto{
-    @IsNotEmpty()
-    @IsString()
-    name?: string;
-
-    @IsNotEmpty()
-    @IsString()
-    location?: string;
+  @IsMongoId()
+  @IsNotEmpty()
+  questionId!: string;
 }
