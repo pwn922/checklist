@@ -6,6 +6,8 @@ import { MsQuestionnaireService } from './ms-questionnaire.service';
 import { QuestionnaireModule } from './modules/questionnaire/questionnaire.module';
 import { AnswersModule } from './modules/answers/answers.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { QuestionModule } from './modules/question/question.module';
+import { SectionModule } from './modules/section/section.module';
 
 @Module({
   imports: [
@@ -33,6 +35,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ]),
     QuestionnaireModule,
     AnswersModule,
+    QuestionModule,
+    SectionModule
   ],
   controllers: [MsQuestionnaireController],
   providers: [MsQuestionnaireService],
