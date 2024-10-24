@@ -1,16 +1,14 @@
-import { IsNotEmpty, IsMongoId, IsOptional, IsArray } from 'class-validator';
-import { Types } from 'mongoose';
+import { IsNotEmpty, IsArray, IsString, ValidateNested } from 'class-validator';
+import { CreateQuestionDto } from '../../question/dto/create-question.dto';
+import { Type } from 'class-transformer';
 
 export class CreateSectionDto {
+  @IsString()
   @IsNotEmpty()
   title!: string;
 
-  @IsOptional()
   @IsArray()
-  @IsMongoId({ each: true })
-  questions?: Types.ObjectId[];
-
-  @IsMongoId()
-  @IsNotEmpty()
-  questionnaireId!: Types.ObjectId;
+  @ValidateNested({ each: true })
+  @Type(() => CreateQuestionDto)
+  questions!: CreateQuestionDto[];
 }
