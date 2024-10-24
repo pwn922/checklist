@@ -2,36 +2,46 @@
 
 
 @QUESTIONNAIRE_ENDPOINT=questionnaire
-@ANSWER_ENDPOINT=answers
+@ANSWER_ENDPOINT=answer
 
-# QUESTIONNAIRE
-### Get Questionnaires
-GET {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}
-User-Agent: rest-client
-Content-Type: application/json
-
-
-### Create Questionnaire
+### CREATE A NEW QUESTIONNAIRE
 POST {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}
 Content-Type: application/json
-Authorization: 
+Authorization:
 
 {
-    "title": "title3",
-    "description": "description1"
+  "title": "Sample Questionnaire 1",
+  "sections": [
+    {
+      "title": "Section 2",
+      "questions": [
+        {
+          "content": "What is your favorite color?",
+          "observation": "Pick one color",
+          "answers": [
+            { "content": "Red" },
+            { "content": "Blue" },
+            { "content": "Green" }
+          ]
+        },
+        {
+          "content": "Explain your answer",
+          "observation": "Provide a short explanation",
+          "answers": [
+            { "content": "SI" },
+            { "content": "NO" }
+          ]
+        }
+      ]
+    }
+  ]
 }
 
-# ANSWERS
-### Get Answers
-GET {{MS-QUESTIONNAIRE_URL}}/{{ANSWER_ENDPOINT}}
-User-Agent: rest-client
-Content-Type: application/json
+### GET QUESTIONNAIRES
+GET {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}
 
-### Create Answer
-POST {{MS-QUESTIONNAIRE_URL}}/{{ANSWER_ENDPOINT}}
-Content-Type: application/json
-Authorization: 
+### GET QUESTIONNAIRE BY ID
+GET {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}/ID_HERE
 
-{
-    "answerText": "description1"
-}
+### DELETE QUESTIONNAIRE BY ID
+DELETE {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}/ID_HERE
