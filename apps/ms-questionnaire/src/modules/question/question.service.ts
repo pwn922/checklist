@@ -7,6 +7,9 @@ import { MongoError } from 'mongodb';
 import { mongoErrorHandler } from '@app/common';
 import { Question } from './entity/question.entity';
 
+
+// CAMBIAR QUESTIONMODULE POR SERVICIOS DE CADA UNO
+
 @Injectable()
 export class QuestionService {
   constructor(

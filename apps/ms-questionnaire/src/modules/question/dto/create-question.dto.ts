@@ -1,5 +1,6 @@
-import { IsNotEmpty, IsEnum, IsMongoId, IsOptional, IsArray, IsNumber } from 'class-validator';
-import { Types } from 'mongoose';
+import { IsNotEmpty, IsArray, IsNumber, ValidateNested } from 'class-validator';
+import { CreateAnswerDto } from '../../answer/dto/create-answer.dto';
+import { Type } from 'class-transformer';
 
 export class CreateQuestionDto {
   @IsNotEmpty()
@@ -8,19 +9,18 @@ export class CreateQuestionDto {
   @IsNotEmpty()
   observation!: string;
 
+  /*
+  @IsNumber()
+  number!: number;
+*/
+  /*
   @IsEnum(['multiple-choice', 'short-answer', 'single-choice'])
   @IsNotEmpty()
   type!: string;
-
-  @IsMongoId()
-  @IsOptional()
-  sectionId?: Types.ObjectId;
+  */
 
   @IsArray()
-  @IsOptional()
-  answers?: Types.ObjectId[];
-
-  @IsNumber()
-  @IsOptional()
-  position?: number;
+  @ValidateNested({ each: true })
+  @Type(() => CreateAnswerDto)
+  answers!: CreateAnswerDto[];
 }
