@@ -6,23 +6,85 @@ import { UpdateQuestionnaireDto } from './dto/update-questionnaire.dto';
 import { Questionnaire } from './schemas/questionnaire.schema';
 import { mongoErrorHandler } from '@app/common';
 import { MongoError } from 'mongodb';
+import { SectionService } from '../section/section.service';
+import { QuestionService } from '../question/question.service';
+import { AnswerService } from '../answer/answer.service';
+import { CreateAnswerDto } from '../answer/dto/create-answer.dto';
+import { CreateQuestionDto } from '../question/dto/create-question.dto';
+import { CreateSectionDto } from '../section/dto/create-section.dto';
 
 @Injectable()
 export class QuestionnaireService {
-  constructor(@InjectModel(Questionnaire.name) private questionnaireModel: Model<Questionnaire>) {}
+  constructor(
+      @InjectModel(Questionnaire.name) private questionnaireModel: Model<Questionnaire>,
+      private readonly sectionService: SectionService,
+      private readonly questionService: QuestionService,
+      private readonly answerService: AnswerService,
+  ) {}
+
+  async createAnswer(answerData: CreateAnswerDto) {
+      return await this.answerService.create(answerData);
+  }
+
+  async createQuestion(questionData: CreateQuestionDto) {
+    const newAnswers = await Promise.all(questionData.answers.map(answerData => this.createAnswer(answerData)));
+    questionData.answers = newAnswers;
+
+    return await this.questionService.create(questionData);
+  }
+
+  async createSection(sectionData: CreateSectionDto) {
+    const newQuestions = await Promise.all(sectionData.questions.map(questionData => this.createQuestion(questionData)));
+    sectionData.questions = newQuestions;
+
+    return await this.sectionService.create(sectionData);
+  }
 
   async create(createQuestionnaireDto: CreateQuestionnaireDto) {
     try {
-      return await this.questionnaireModel.create(createQuestionnaireDto);
+      const newSections = await Promise.all(
+        createQuestionnaireDto.sections.map((sectionData) =>
+          this.createSection(sectionData)
+        )
+      );
+      
+      createQuestionnaireDto.sections = newSections;
+      const createdQuestionnaire = await this.questionnaireModel.create(
+        createQuestionnaireDto
+      );
+
+      const populatedQuestionnaire = await createdQuestionnaire.populate({
+        path: 'sections',
+        select: '_id',
+        populate: {
+            path: 'questions',
+            select: '_id',
+            populate: {
+                path: 'answers',
+                select: '_id',
+            },
+        },
+      });
+
+      return populatedQuestionnaire;
     } catch (error) {
-      if ((error as Record<string, number>)?.code)
-        mongoErrorHandler(error as MongoError);
+      if ((error as Record<string, number>)?.code) {
+          mongoErrorHandler(error as MongoError);
+      }
       throw new Error(error as string);
     }
   }
 
   async findAll() {
-    return await this.questionnaireModel.find().exec();
+    return await this.questionnaireModel.find().populate({
+      path: 'sections',
+      populate: {
+        path: 'questions',
+        populate: {
+          path: 'answers',
+        },
+      },
+    }).exec();
   }
 
   async findOne(id: string) {

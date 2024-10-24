@@ -3,16 +3,19 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { QuestionnaireService } from './questionnaire.service';
 import { CreateQuestionnaireDto } from './dto/create-questionnaire.dto';
 import { UpdateQuestionnaireDto } from './dto/update-questionnaire.dto';
+import { Public } from '@app/common';
 
 @Controller('questionnaire')
 export class QuestionnaireController {
   constructor(private readonly questionnaireService: QuestionnaireService) {}
 
+  @Public()
   @Post()
   create(@Body() createQuestionnaireDto: CreateQuestionnaireDto) {
     return this.questionnaireService.create(createQuestionnaireDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.questionnaireService.findAll();
