@@ -3,6 +3,7 @@
 
 @QUESTIONNAIRE_ENDPOINT=questionnaire
 @ANSWER_ENDPOINT=answer
+@ID_QUESTIONNAIRE=
 
 ### CREATE A NEW QUESTIONNAIRE
 POST {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}
@@ -10,22 +11,13 @@ Content-Type: application/json
 Authorization:
 
 {
-  "title": "Sample Questionnaire 1",
+  "title": "Sample Questionnaire 2",
   "sections": [
     {
-      "title": "Section 2",
+      "title": "Section 1",
       "questions": [
         {
-          "content": "What is your favorite color?",
-          "observation": "Pick one color",
-          "answers": [
-            { "content": "Red" },
-            { "content": "Blue" },
-            { "content": "Green" }
-          ]
-        },
-        {
-          "content": "Explain your answer",
+          "content": "Explain your answer?",
           "observation": "Provide a short explanation",
           "answers": [
             { "content": "SI" },
@@ -41,7 +33,7 @@ Authorization:
 GET {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}
 
 ### GET QUESTIONNAIRE BY ID
-GET {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}/ID_HERE
+GET {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}/{{ID_QUESTIONNAIRE}}
 
 ### DELETE QUESTIONNAIRE BY ID
-DELETE {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}/ID_HERE
+DELETE {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}/{{ID_QUESTIONNAIRE}}
