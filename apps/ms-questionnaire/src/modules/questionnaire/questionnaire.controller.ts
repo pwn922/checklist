@@ -31,6 +31,7 @@ export class QuestionnaireController {
     return this.questionnaireService.update(id, updateQuestionnaireDto);
   }
 
+  @Public()
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.questionnaireService.remove(id);

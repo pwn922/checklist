@@ -102,6 +102,9 @@ export class QuestionnaireService {
   }
 
   async remove(id: string) {
-    return await this.questionnaireModel.deleteOne({ _id: id }).exec();
+    return await this.questionnaireModel
+      .findOneAndDelete({ _id: id })
+      .exec();
   }
+  
 }
