@@ -12,3 +12,13 @@ export class Questionnaire extends Document {
 }
 
 export const QuestionnaireSchema = SchemaFactory.createForClass(Questionnaire);
+
+QuestionnaireSchema.pre('findOneAndDelete', async function (next) {
+  const questionnaire = await this.model.findOne<Questionnaire>(this.getQuery());
+  if (questionnaire && questionnaire.sections) {
+    const SectionModel = this.model.db.model('Section');
+    await SectionModel.deleteMany( { _id: { $in: questionnaire.sections } });
+  }
+
+  next();
+});

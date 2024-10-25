@@ -13,3 +13,13 @@ export class Section extends Document {
 }
 
 export const SectionSchema = SchemaFactory.createForClass(Section);
+
+SectionSchema.pre('deleteMany', async function (next) {
+  const section = await this.model.findOne<Section>(this.getQuery());
+  if (section && section.questions.length) {
+    const QuestionModel = this.model.db.model('Question');
+    await QuestionModel.deleteMany({ _id: { $in: section.questions } })
+  }
+
+  next();
+});

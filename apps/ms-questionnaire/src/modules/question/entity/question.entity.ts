@@ -24,3 +24,14 @@ export class Question extends Document {
 }
 
 export const QuestionSchema = SchemaFactory.createForClass(Question);
+
+QuestionSchema.pre('deleteMany', async function (next) {
+  const question = await this.model.findOne<Question>(this.getQuery());
+
+  if (question && question.answers.length) {
+      const AnswerModel = this.model.db.model('Answer');
+      await AnswerModel.deleteMany({ _id: { $in: question.answers } })
+  }
+
+  next();
+});
