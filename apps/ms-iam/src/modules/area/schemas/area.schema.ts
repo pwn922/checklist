@@ -7,9 +7,7 @@ export class Area extends Document {
   name?: string;
 
   @Prop({ type: String, required: true })
-  location?: string;
-
-  
+  location?: string; 
 }
 
 export const AreaSchema = SchemaFactory.createForClass(Area);
