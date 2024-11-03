@@ -1,7 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request } from '@nestjs/common';
 import { MachineService } from './machine.service';
 import { CreateMachineDto } from './dto/create-machine.dto';
 import { UpdateMachineDto } from './dto/update-machine.dto';
+
+
+interface UserRequest extends Request {
+  user?: any;
+}
 
 @Controller('machine')
 export class MachineController {
@@ -30,5 +35,11 @@ export class MachineController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.machineService.remove(id);
+  }
+
+  @Get('machines/area')
+  getMachinesByAreaId(@Request() req: UserRequest) {
+    const areaId = req.user.areaId;
+    return this.machineService.getMachinesByAreaId(areaId);
   }
 }
