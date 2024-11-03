@@ -2,8 +2,8 @@ import { IsNotEmpty } from 'class-validator';
 
 export class CreateUserMachineDto {
   @IsNotEmpty()
-  userId!: string;  // Definite assignment assertion
+  userId!: string;
 
   @IsNotEmpty()
-  machineId!: string;  // Definite assignment assertion
+  machineId!: string;
 }
