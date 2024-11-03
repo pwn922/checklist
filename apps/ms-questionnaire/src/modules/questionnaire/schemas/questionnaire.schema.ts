@@ -9,6 +9,9 @@ export class Questionnaire extends Document {
 
   @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Section' }] })
   sections!: Section[];
+
+  @Prop({ required: false })
+  isCompleted?: boolean;
 }
 
 export const QuestionnaireSchema = SchemaFactory.createForClass(Questionnaire);
