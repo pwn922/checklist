@@ -8,8 +8,6 @@ export class Company extends Document {
 
   @Prop({ type: String, required: true })
   address?: string;
-
-  
 }
 
 export const CompanySchema = SchemaFactory.createForClass(Company);
