@@ -6,11 +6,10 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login-auth.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { RefreshTokenDto } from './dto/refesh-token-auth.dto';
+import { IUser } from '../user/schemas/user.schema';
 
-interface UserPayload {
-  id: string;
-  email: string;
-}
+
+type UserPayload = Pick<IUser, 'id' | 'email' | 'areaId'>;
 
 @Injectable()
 export class AuthService {
@@ -47,7 +46,7 @@ export class AuthService {
       throw new UnauthorizedException(['Invalid credentials']);
     }
 
-    const payload = { id: user.id, email: user.email };
+    const payload = { id: user.id, email: user.email, areaId: user.areaId };
     const accessToken = await this.generateAccessToken(payload);
     const refreshToken = await this.generateRefreshToken(payload);
 
@@ -95,7 +94,7 @@ export class AuthService {
         secret: JWT_REFRESH_SECRET,
       });
 
-      payload = { id: payload.id, email: payload.email };
+      payload = { id: payload.id, email: payload.email, areaId: payload.areaId };
 
       const accessToken = await this.generateAccessToken(payload);
       return { accessToken };
