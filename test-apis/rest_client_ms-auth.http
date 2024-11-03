@@ -25,6 +25,7 @@ Authorization:
     "lastName": "lastName1",
     "email": "mail3@hotmail.com",
     "password": "pass3",
+    "areaId": "",
     "active": true
 }
 

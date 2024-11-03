@@ -1,10 +1,15 @@
 @MS-IAM_URL=http://127.0.0.1:3001
 @USER_MACHINE_ENDPOINT=user-machine
 @MACHINE_ENDPOINT=machine
+
+@MACHINES_BY_AREA=machines/area
+
+@ID_AREA=aaaa
+
 @AREA_ENDPOINT=area
 @COMPANY_ENDPOINT=company
 
-@JWT_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZWZhNzU4MDRhZjEzZTg2NmEwMzYyNiIsImVtYWlsIjoibWFpbDNAaG90bWFpbC5jb20iLCJpYXQiOjE3Mjc2NzgyMzIsImV4cCI6MTcyNzc2NDYzMn0.5i_5Cxu4WpsYfnb0mZu_hu3Ay5DQk2fv5FHKOY1QXf0
+@JWT_TOKEN=
 ### /
 GET {{MS-IAM_URL}}/area
 //User-Agent: rest-client
@@ -20,12 +25,19 @@ Content-Type: application/json
 ### Create Machine
 POST {{MS-IAM_URL}}/{{MACHINE_ENDPOINT}}
 Content-Type: application/json
-Authorization: 
+Authorization: Bearer {{JWT_TOKEN}}
 
 {
+    "patente": "bbb",
     "name": "machine1",
-    "modelo": "modelo1"
+    "modelo": "modelo1",
+    "areaId": ""
 }
+
+### Get machines by areas
+GET {{MS-IAM_URL}}/{{MACHINE_ENDPOINT}}/{{MACHINES_BY_AREA}}
+Content-Type: application/json
+Authorization: Bearer {{JWT_TOKEN}}
 
 # User-Machine
 
@@ -61,18 +73,7 @@ Authorization: Bearer {{JWT_TOKEN}}
     "location": "location2"
 }
 
-### Create Area
-POST {{MS-IAM_URL}}/{{AREA_ENDPOINT}}
-Content-Type: application/json
-Authorization: 
-
-{
-    "name": "area2",
-    "location": "location2"
-}
-
 # Company
-
 
 ### Get Companies
 GET {{MS-IAM_URL}}/{{COMPANY_ENDPOINT}}
