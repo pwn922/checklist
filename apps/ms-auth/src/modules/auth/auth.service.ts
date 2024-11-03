@@ -6,10 +6,9 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login-auth.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { RefreshTokenDto } from './dto/refesh-token-auth.dto';
-import { IUser } from '../user/schemas/user.schema';
+import { User } from '../user/schemas/user.schema';
 
-
-type UserPayload = Pick<IUser, 'id' | 'email' | 'areaId'>;
+type UserPayload = Pick<User, 'id' | 'email' | 'areaId'>;
 
 @Injectable()
 export class AuthService {
