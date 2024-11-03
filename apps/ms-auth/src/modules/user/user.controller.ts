@@ -40,4 +40,9 @@ export class UserController {
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
   }
+
+  @Get('email/:email')
+  async findByEmail(@Param('email') email: string) {
+    return await this.userService.findOneByEmail(email);
+  }
 }
