@@ -10,15 +10,28 @@ export class Question extends Document {
   @Prop({ required: true })
   observation!: string;
 
-  /*
-  @Prop({ required: true, enum: ['multiple-choice', 'short-answer', 'single-choice'] })
+  @Prop({ enum: ['multiple-choices', 'text-answer', 'single-choice'], required: true })
   type!: string;
-  */
+  
   @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Answer' }] })
   answers!: Answer[];
 
+  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId }], required: false, default: undefined }) 
+  userAnswer!: Answer[];
+
+  
+
+  //@Prop({ required: false })
+  //userAnswerText!: Answer;
+
+  //@Prop({ required: false })
+  //userAnswerSingleChoice!: Answer;
+
+  //@Prop({ required: false })
+  //images!: undefined
+
   /*
-  @Prop({ required: false })
+  @Prop({ required: false }
   position!: number;
   */
 }

@@ -23,18 +23,24 @@ export class QuestionnaireService {
   ) {}
 
   async createAnswer(answerData: CreateAnswerDto) {
+      console.debug(answerData)
       return await this.answerService.create(answerData);
   }
 
+
   async createQuestion(questionData: CreateQuestionDto) {
-    const newAnswers = await Promise.all(questionData.answers.map(answerData => this.createAnswer(answerData)));
+    const newAnswers = await Promise.all(questionData.answers.map(async (answerData) => await this.createAnswer(answerData)));
     questionData.answers = newAnswers;
+
+    const userAnswer = questionData.userAnswer ?? [];
+    const newUserAnswer = await Promise.all(userAnswer.map(async (answerData) => await this.createAnswer(answerData)));
+    questionData.userAnswer = newUserAnswer;
 
     return await this.questionService.create(questionData);
   }
 
   async createSection(sectionData: CreateSectionDto) {
-    const newQuestions = await Promise.all(sectionData.questions.map(questionData => this.createQuestion(questionData)));
+    const newQuestions = await Promise.all(sectionData.questions.map(async (questionData) => await this.createQuestion(questionData)));
     sectionData.questions = newQuestions;
 
     return await this.sectionService.create(sectionData);
@@ -43,12 +49,13 @@ export class QuestionnaireService {
   async create(createQuestionnaireDto: CreateQuestionnaireDto) {
     try {
       const newSections = await Promise.all(
-        createQuestionnaireDto.sections.map((sectionData) =>
-          this.createSection(sectionData)
+        createQuestionnaireDto.sections.map(async (sectionData) =>
+          await this.createSection(sectionData)
         )
       );
       
       createQuestionnaireDto.sections = newSections;
+      console.log(createQuestionnaireDto)
       const createdQuestionnaire = await this.questionnaireModel.create(
         createQuestionnaireDto
       );

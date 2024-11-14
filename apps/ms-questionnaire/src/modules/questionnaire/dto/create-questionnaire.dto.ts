@@ -12,5 +12,8 @@ export class CreateQuestionnaireDto {
   sections!: CreateSectionDto[];
 
   @IsOptional()
-  isCompleted?: boolean;
+  userId?: string;
+
+  @IsOptional()
+  machineId?: string;
 }

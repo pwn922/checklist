@@ -6,7 +6,6 @@ import { Question } from '../../question/entity/question.entity';
 export class Section extends Document {
   @Prop({ required: true })
   title!: string;
-  
 
   @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Question' }] })
   questions!: Question[];

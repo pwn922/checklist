@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsArray, IsNumber, ValidateNested } from 'class-validator';
+import { IsNotEmpty, IsArray, IsNumber, ValidateNested, IsOptional } from 'class-validator';
 import { CreateAnswerDto } from '../../answer/dto/create-answer.dto';
 import { Type } from 'class-transformer';
 
@@ -23,4 +23,10 @@ export class CreateQuestionDto {
   @ValidateNested({ each: true })
   @Type(() => CreateAnswerDto)
   answers!: CreateAnswerDto[];
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateAnswerDto)
+  userAnswer?: CreateAnswerDto[];
 }

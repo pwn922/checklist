@@ -1,17 +1,27 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Section } from '../../section/entities/section.entity';
+import { Photo } from '../../photo-upload/schemas/photo.schema';
 
 @Schema({ timestamps: true })
 export class Questionnaire extends Document {
   @Prop({ required: true })
   title?: string;
 
-  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Section' }] })
-  sections!: Section[];
+  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Section' }], required: false })
+  sections?: Section[];
 
   @Prop({ required: false })
   isCompleted?: boolean;
+
+  @Prop({ required: false, type: MongooseSchema.Types.ObjectId }) 
+  userId?: MongooseSchema.Types.ObjectId; 
+  
+  @Prop({ required: false, type: MongooseSchema.Types.ObjectId }) 
+  machineId?: MongooseSchema.Types.ObjectId
+
+  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Photo' }], required: false })
+  photos?: Photo[]
 }
 
 export const QuestionnaireSchema = SchemaFactory.createForClass(Questionnaire);
