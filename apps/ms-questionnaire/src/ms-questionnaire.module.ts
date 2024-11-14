@@ -10,6 +10,7 @@ import { QuestionModule } from './modules/question/question.module';
 import { SectionModule } from './modules/section/section.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from '@app/common';
+import { PhotoUploadModule } from './modules/photo-upload/photo-upload.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { JwtAuthGuard } from '@app/common';
         inject: [ConfigService],
       },
     ]),
+    PhotoUploadModule,
     QuestionnaireModule,
     AnswersModule,
     QuestionModule,
