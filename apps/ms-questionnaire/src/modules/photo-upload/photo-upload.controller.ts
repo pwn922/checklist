@@ -9,6 +9,7 @@ import { Public } from '@app/common';
 export class PhotoUploadController {
   constructor(private readonly photoUploadService: PhotoUploadService) {}
 
+  @Public()
   @Post()
   create(@Body() createPhotoUploadDto: CreatePhotoUploadDto) {
     return this.photoUploadService.create(createPhotoUploadDto);
@@ -19,6 +20,7 @@ export class PhotoUploadController {
     return this.photoUploadService.findAll();
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.photoUploadService.findOne(id);
@@ -32,18 +34,5 @@ export class PhotoUploadController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.photoUploadService.remove(id);
-  }
-
-  @Public()
-  @Post('upload')
-  @UseInterceptors(FilesInterceptor('photos'))
-  uploadFile(@UploadedFiles(new ParseFilePipeBuilder()
-    .addFileTypeValidator({
-      fileType: 'jpeg|jpg|png',
-    })
-    .build({
-      errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
-    }),) files: Array<Express.Multer.File>) {
-    console.log(files);
   }
 }

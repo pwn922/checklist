@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
 import { PhotoUploadService } from './photo-upload.service';
 import { PhotoUploadController } from './photo-upload.controller';
-import { MulterModule } from '@nestjs/platform-express';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Photo, PhotoSchema } from './schemas/photo.schema';
 
 @Module({
-  imports: [MulterModule.registerAsync({
-    useFactory: () => ({
-      dest: './photos',
-    }),
-  })],
+  imports: [
+    MongooseModule.forFeature([{ name: Photo.name, schema: PhotoSchema }]),
+  ],
   controllers: [PhotoUploadController],
   providers: [PhotoUploadService],
 })
