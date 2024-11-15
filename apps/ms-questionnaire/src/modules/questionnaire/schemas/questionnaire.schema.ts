@@ -20,7 +20,7 @@ export class Questionnaire extends Document {
   @Prop({ required: false, type: MongooseSchema.Types.ObjectId }) 
   machineId?: MongooseSchema.Types.ObjectId
 
-  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Photo' }], required: false })
+  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Photo' }], required: false, default: undefined  })
   photos?: Photo[]
 }
 

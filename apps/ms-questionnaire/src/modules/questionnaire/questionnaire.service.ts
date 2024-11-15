@@ -114,4 +114,7 @@ export class QuestionnaireService {
       .exec();
   }
   
+  async findByUserId(userId: string) {
+    return await this.questionnaireModel.find({ userId: userId, isCompleted: true }).exec();
+  }
 }

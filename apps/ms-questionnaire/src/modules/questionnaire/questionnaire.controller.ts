@@ -1,9 +1,14 @@
 // modules/questionnaire/questionnaire.controller.ts
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request } from '@nestjs/common';
 import { QuestionnaireService } from './questionnaire.service';
 import { CreateQuestionnaireDto } from './dto/create-questionnaire.dto';
 import { UpdateQuestionnaireDto } from './dto/update-questionnaire.dto';
 import { Public } from '@app/common';
+
+
+interface UserRequest extends Request {
+  user?: any;
+}
 
 @Controller('questionnaire')
 export class QuestionnaireController {
@@ -35,5 +40,12 @@ export class QuestionnaireController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.questionnaireService.remove(id);
+  }
+
+  @Get('/user/questionnaires')
+  getUserQuestionnaires(@Request() req: UserRequest) {
+    const userId = req.user.id;
+    console.log(userId);
+    return this.questionnaireService.findByUserId(userId);
   }
 }

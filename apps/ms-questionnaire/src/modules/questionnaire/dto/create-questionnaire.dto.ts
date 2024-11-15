@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsArray, ValidateNested, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsArray, ValidateNested, IsOptional, IsMongoId } from 'class-validator';
 import { CreateSectionDto } from '../../section/dto/create-section.dto';
 import { Type } from 'class-transformer';
 
@@ -16,4 +16,9 @@ export class CreateQuestionnaireDto {
 
   @IsOptional()
   machineId?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsMongoId({each: true})
+  photos!: string;
 }
