@@ -1,22 +1,24 @@
 @MS-QUESTIONNAIRE_URL=http://127.0.0.1:3002
 
-
+@PHOTO-UPLOAD_ENDPOINT=photo-upload
 @QUESTIONNAIRE_ENDPOINT=questionnaire
 @ANSWER_ENDPOINT=answer
 @ID_QUESTIONNAIRE=
-
+@USER_QUESTIONNAIRES_ENDPOINT=user/questionnaires
+@JWT_TOKEN=
 ### CREATE A NEW QUESTIONNAIRE
 POST {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}
 Content-Type: application/json
 Authorization:
 
 {
-  "title": "Sample Questionnaire 2",
+  "title": "Sample Questionnaire 1",
   "sections": [
     {
       "title": "Section 1",
       "questions": [
         {
+          "type": "single-choice",
           "content": "Explain your answer?",
           "observation": "Provide a short explanation",
           "answers": [
@@ -29,6 +31,38 @@ Authorization:
   ]
 }
 
+### CREATE A NEW COMPLETED QUESTIONNAIRE 
+POST {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}
+Content-Type: application/json
+Authorization:
+
+{
+  "title": "Sample Questionnaire 2",
+  "userId": "6726a797c6ed6eabc6a6f76e",
+  "machineId": "6726a2372821a32a0830f68f",
+  "sections": [
+    {
+      "title": "Section 1",
+      "questions": [
+        {
+          "type": "single-choice",
+          "content": "Explain your answer?",
+          "observation": "Provide a short explanation",
+          "answers": [
+            { "content": "SI" },
+            { "content": "NO" }
+          ],
+          "userAnswer": [
+            { "content": "NO" }
+          ]
+        }
+      ]
+    }
+  ],
+  "isCompleted": true,
+  "photos": ["6736adba69f3101f90b31c3d"]
+}
+
 ### GET QUESTIONNAIRES
 GET {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}
 
@@ -37,3 +71,17 @@ GET {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}/{{ID_QUESTIONNAIRE}}
 
 ### DELETE QUESTIONNAIRE BY ID
 DELETE {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}/{{ID_QUESTIONNAIRE}}
+
+### CREATE PHOTO
+POST {{MS-QUESTIONNAIRE_URL}}/{{PHOTO-UPLOAD_ENDPOINT}}
+Content-Type: application/json
+Authorization:
+
+{
+  "base64Photo": "",
+  "type": "jpg"
+}
+
+### GET USER HISTORY QUESTIONNAIRES
+GET {{MS-QUESTIONNAIRE_URL}}/{{QUESTIONNAIRE_ENDPOINT}}/{{USER_QUESTIONNAIRES_ENDPOINT}}
+Authorization: Bearer {{JWT_TOKEN}}
