@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsArray, ValidateNested, IsOptional, IsMongoId, IsString, isNumberString, IsNumberString } from 'class-validator';
 import { CreateSectionDto } from '../../section/dto/create-section.dto';
 import { Type } from 'class-transformer';
+import { LocationDto } from './location.dto';
 
 export class CreateQuestionnaireDto {
   @IsNotEmpty()
@@ -26,14 +27,4 @@ export class CreateQuestionnaireDto {
   @ValidateNested()
   @Type(() => LocationDto)
   location?: LocationDto;
-}
-
-export class LocationDto {
-  @IsNumberString()
-  @IsOptional()
-  latitude?: string;
-
-  @IsNumberString()
-  @IsOptional()
-  longitude?: string;
 }
