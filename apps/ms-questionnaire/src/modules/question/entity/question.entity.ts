@@ -16,7 +16,7 @@ export class Question extends Document {
   @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Answer' }] })
   answers!: Answer[];
 
-  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId }], required: false, default: undefined }) 
+  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Answer' }], required: false, default: undefined })
   userAnswer!: Answer[];
 
   
