@@ -83,15 +83,15 @@ export class QuestionnaireService {
   }
 
   async findAll() {
-    return await this.questionnaireModel.find().populate({
-      path: 'sections',
-      populate: {
-        path: 'questions',
+    return await this.questionnaireModel.find({ isCompleted: { $exists: false } }).populate({
+        path: 'sections',
         populate: {
-          path: 'answers',
+          path: 'questions',
+          populate: {
+            path: 'answers',
+          },
         },
-      },
-    }).exec();
+      }).exec();
   }
 
   async findOne(id: string) {
@@ -115,6 +115,22 @@ export class QuestionnaireService {
   }
   
   async findByUserId(userId: string) {
-    return await this.questionnaireModel.find({ userId: userId, isCompleted: true }).exec();
+    return await this.questionnaireModel
+      .find({ userId: userId, isCompleted: true })
+      .populate({
+        path: 'sections',
+        populate: {
+          path: 'questions',
+          populate: [
+            {
+              path: 'answers',
+            },
+            {
+              path: 'userAnswer',
+            },
+          ],
+        },
+      })
+      .exec();
   }
 }
