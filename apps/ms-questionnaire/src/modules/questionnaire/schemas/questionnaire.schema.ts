@@ -22,6 +22,15 @@ export class Questionnaire extends Document {
 
   @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Photo' }], required: false, default: undefined  })
   photos?: Photo[]
+
+  @Prop({
+    type: {
+      latitude: { type: String },
+      longitude: { type: String },
+    },
+    required: false,
+  })
+  location?: { latitude: string; longitude: string };
 }
 
 export const QuestionnaireSchema = SchemaFactory.createForClass(Questionnaire);
