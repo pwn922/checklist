@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsArray, ValidateNested, IsOptional, IsMongoId, IsString } from 'class-validator';
+import { IsNotEmpty, IsArray, ValidateNested, IsOptional, IsMongoId, IsString, isNumberString, IsNumberString } from 'class-validator';
 import { CreateSectionDto } from '../../section/dto/create-section.dto';
 import { Type } from 'class-transformer';
 
@@ -29,11 +29,11 @@ export class CreateQuestionnaireDto {
 }
 
 export class LocationDto {
-  @IsString()
+  @IsNumberString()
   @IsOptional()
   latitude?: string;
 
-  @IsString()
+  @IsNumberString()
   @IsOptional()
   longitude?: string;
 }
