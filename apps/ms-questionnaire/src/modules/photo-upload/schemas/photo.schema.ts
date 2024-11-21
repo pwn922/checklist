@@ -7,7 +7,7 @@ export class Photo extends Document {
   filenamePath!: string;
 
   @Prop({ required: true })
-  type!: string;
+  mimeType!: string;
 }
 
 export const PhotoSchema = SchemaFactory.createForClass(Photo);

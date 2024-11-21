@@ -23,7 +23,7 @@ export class PhotoUploadService {
     const filenamePath = path + "/" + filename;
     const newPhoto = {
       filenamePath: filenamePath,
-      type: createPhotoUploadDto.type
+      mimeType: createPhotoUploadDto.mimeType
     }
 
     return await this.photoModel.create(newPhoto)
@@ -48,7 +48,8 @@ export class PhotoUploadService {
     const base64Photo = await getFileBase64(filenamePath);
 
     return {
-      base64Photo
+      base64Photo: base64Photo,
+      mimeType: photoFound.mimeType
     };
   }
 
