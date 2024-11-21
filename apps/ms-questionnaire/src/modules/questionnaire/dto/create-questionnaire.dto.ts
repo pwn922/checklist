@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsArray, ValidateNested, IsOptional, IsMongoId, IsString, isNumberString, IsNumberString } from 'class-validator';
+import { IsNotEmpty, IsArray, ValidateNested, IsOptional, IsMongoId } from 'class-validator';
 import { CreateSectionDto } from '../../section/dto/create-section.dto';
 import { Type } from 'class-transformer';
 import { LocationDto } from './location.dto';
