@@ -42,7 +42,7 @@ export class AuthService {
     const user = await this.userService.findOneByEmail(loginDto.email);
     const passwordMatch = user && await bcrypt.compare(loginDto.password, user.password);
     if (!passwordMatch) {
-      throw new UnauthorizedException(['Invalid credentials']);
+      throw new UnauthorizedException(['Credenciales inválidas, Ingrese nuevamente']);
     }
 
     const payload = { id: user.id, email: user.email, areaId: user.areaId };
